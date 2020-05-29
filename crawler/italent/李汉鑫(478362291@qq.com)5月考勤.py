@@ -1,7 +1,8 @@
-# 总条数28
-# 工作日加班超过22:30天数:15
+# 总条数29
+# 工作日加班超过22:30天数:16
 # 考勤数据:
-list_data = [{'date_type': '工作日', 'data_time': '2020/05/28 星期四', 'start_time': '08:43', 'end_time': ''},
+list_data = [{'date_type': '工作日', 'data_time': '2020/05/29 星期五', 'start_time': '08:52', 'end_time': ''},
+             {'date_type': '工作日', 'data_time': '2020/05/28 星期四', 'start_time': '08:43', 'end_time': '22:30'},
              {'date_type': '工作日', 'data_time': '2020/05/27 星期三', 'start_time': '08:50', 'end_time': '20:33'},
              {'date_type': '工作日', 'data_time': '2020/05/26 星期二', 'start_time': '08:54', 'end_time': '22:31'},
              {'date_type': '工作日', 'data_time': '2020/05/25 星期一', 'start_time': '08:52', 'end_time': '22:31'},
