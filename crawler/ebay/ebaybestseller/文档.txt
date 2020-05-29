@@ -1,0 +1,1 @@
+1.在spider下执行scrapy crawl ebay_bestseller进行数据爬取
