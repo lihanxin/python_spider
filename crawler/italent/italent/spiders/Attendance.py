@@ -12,8 +12,7 @@ class AttendanceSpider(scrapy.Spider):
                   ]
 
     def start_requests(self):
-        cookies_temp = 'Tita_PC=YiSzliuGtU8tJ5Gt2PYMU3GAjXqa07KvzK8NVm_Zc0EtxuBcBTueKu1JhN0Pcj6z; key-140405003=true; iTalent-tenantId=109937'  # 吴秀远
-        #cookies_temp='Tita_PC=YiSzliuGtU-_kjC11uYCAppKMkmuHgeU9OHHLpaWCJ049GH6Celc43OEvQm4WMU6; iTalent-tenantId=109937; ssn_Tita_PC=YiSzliuGtU-_kjC11uYCAppKMkmuHgeU9OHHLpaWCJ049GH6Celc43OEvQm4WMU6; key-128320933=true'
+        cookies_temp='Tita_PC=YiSzliuGtU-_kjC11uYCAppKMkmuHgeU9OHHLpaWCJ049GH6Celc43OEvQm4WMU6; iTalent-tenantId=109937; ssn_Tita_PC=YiSzliuGtU-_kjC11uYCAppKMkmuHgeU9OHHLpaWCJ049GH6Celc43OEvQm4WMU6; key-128320933=true'
         cookies = {i.split('=')[0]: i.split('=')[1] for i in cookies_temp.split('; ')}
         payload = {
             "table_data": {
