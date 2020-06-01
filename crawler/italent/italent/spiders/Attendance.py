@@ -44,6 +44,7 @@ class AttendanceSpider(scrapy.Spider):
             "start_time": data["ActualForFirstCard"]["text"] if "ActualForFirstCard" in data else '',
             "end_time": data["ActualForLastCard"]["text"] if "ActualForLastCard" in data else ''} for data in
             data_list["biz_data"]]
+        #创建文件并写入
         with open('{0}5月考勤.py'.format(data_list["biz_data"][0]["StaffId"]["text"]), 'w+', encoding='utf-8') as f:
             i = 0
             for re in result:
@@ -54,3 +55,9 @@ class AttendanceSpider(scrapy.Spider):
                     i += 1
             f.write("#总条数{0}\n#工作日加班超过22:30天数:{1}\n#考勤数据:\nlist_data={2}".format(len(result), i, result))
             f.close()
+
+        #读取上面写入的文件文本
+        with open('{0}5月考勤.py'.format(data_list["biz_data"][0]["StaffId"]["text"]),'r',encoding='utf-8') as file:
+            print(file.read())
+            file.close()
+
