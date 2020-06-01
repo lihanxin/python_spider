@@ -40,7 +40,7 @@ class AttendanceSpider(scrapy.Spider):
         data_list = json.loads(response.body.decode())
         result = [{
             "date_type": data["DateType"]["text"],
-            "data_time": data["SwipingCardDate"]["text"],
+            "date_time": data["SwipingCardDate"]["text"],
             "start_time": data["ActualForFirstCard"]["text"] if "ActualForFirstCard" in data else '',
             "end_time": data["ActualForLastCard"]["text"] if "ActualForLastCard" in data else ''} for data in
             data_list["biz_data"]]
@@ -54,8 +54,3 @@ class AttendanceSpider(scrapy.Spider):
                     i += 1
             f.write("#总条数{0}\n#工作日加班超过22:30天数:{1}\n#考勤数据:\nlist_data={2}".format(len(result), i, result))
             f.close()
-        # for data in data_list["biz_data"]:
-        #     date_time = data["SwipingCardDate"]["text"]
-        #     date = data["ActualForFirstCard"]["text"] if "ActualForFirstCard" in data else ''
-        #     time = data["ActualForLastCard"]["text"] if "ActualForLastCard" in data else ''
-        #     print('{0} {1} {2}'.format(date_time, date, time))
