@@ -56,13 +56,13 @@ cookies = {i.split('=')[0]: i.split('=')[1] for i in cookies_temp.split('; ')}
 print(cookies)
 
 #列表取索引
-list=['a','b','c']
-for index,l in enumerate(list):
+data=['a','b','c']
+for index,l in enumerate(data):
     print('{0}:{1}'.format(l,index))
 
 
 
-
+print(type([]) is list)
 def func():
     print('2222')
     n = 1
