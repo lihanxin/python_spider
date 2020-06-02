@@ -66,12 +66,13 @@ COOKIES_DEBUG = True
 #EXTENSIONS = {
 #    'scrapy.extensions.telnet.TelnetConsole': None,
 #}
+ITEM_PIPELINES = {
+   'csdn.pipelines.CsdnReviewPipeline':100,
+   #'csdn.pipelines.CsdnPipeline': 300
+}
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'csdn.pipelines.CsdnPipeline': 300,
-#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

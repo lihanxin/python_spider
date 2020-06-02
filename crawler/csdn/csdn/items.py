@@ -12,3 +12,12 @@ class CsdnItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+
+class CsdnReviewItem(scrapy.Item):
+    _id=scrapy.Field()
+    review_username = scrapy.Field()
+    review_content = scrapy.Field()
+    review_zan = scrapy.Field()
+    review_date = scrapy.Field()
+    review_reply = scrapy.Field()

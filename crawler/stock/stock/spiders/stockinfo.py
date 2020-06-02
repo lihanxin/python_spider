@@ -5,6 +5,7 @@ import re
 from stock.items import StockItem
 
 
+
 class StockinfoSpider(scrapy.Spider):
     name = 'stockinfo'
     allowed_domains = ['gucheng.com', '10jqka.com']

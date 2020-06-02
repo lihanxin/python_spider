@@ -22,7 +22,7 @@ print(re.findall('\d{6}',str)[0])
 
 
 #range()函数
-for i in range(10):
+for i in range(4):
     print(i)
 
 #时间
