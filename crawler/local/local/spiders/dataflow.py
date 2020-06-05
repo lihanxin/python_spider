@@ -3,7 +3,7 @@ import scrapy
 import json
 import re
 import copy
-
+from ..items import ImagesItem
 class DataflowSpider(scrapy.Spider):
     name = 'dataflow'
     allowed_domains = []
@@ -29,26 +29,38 @@ class DataflowSpider(scrapy.Spider):
         url_temp=re.findall('[(](.*?)[)]',page['page_content'])
         img_urls=url_temp if len(url_temp)>0 else None
         if img_urls is not  None:
+            #只有1张图片
             if len(img_urls)==1:
                 yield scrapy.Request(
                     img_urls[0],
-                    callback=self.download_img,
+                    callback=self.parse_download,
                     meta={'img_name':page['page_title'],'img_suffix':img_urls[0].split('.')[-1]}#copy.copy({'img_name':page['page_title'],'img_suffix':img_url.split('.')[-1]})
                 )
+
+            #有多张图片
             else:
                 for index,url in enumerate(img_urls):
                     yield scrapy.Request(
                         url,
-                        callback=self.download_img,
+                        callback=self.parse_download,
                         meta={'img_name':'{0}{1}'.format(page['page_title'],index), 'img_suffix': url.split('.')[-1]}
                     )
 
-    def download_img(self,response):
+    def parse_download(self,response):
         img_name=response.meta["img_name"]
         img_suffix = response.meta["img_suffix"]
-        with open('D:\Desktop\图片下载\{0}.{1}'.format(img_name,img_suffix),'wb') as f:
-            f.write(response.body)
-            f.close()
+
+        #直接下载图片
+        # with open('D:\Desktop\图片下载\{0}.{1}'.format(img_name,img_suffix),'wb') as f:
+        #     f.write(response.body)
+        #     f.close()
+
+        # 给到图片下载器下载图片
+        image_item=ImagesItem()
+        image_item['img_url']=response.url
+        image_item['img_name']='{0}.{1}'.format(img_name,img_suffix)
+        yield image_item
+
 
 
 

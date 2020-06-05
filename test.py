@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 import re
 import datetime
-
+import os
+import sys
 #正则
 str = "DEAL_ID=MLB2513&S=MKT&V=3&T=TSB&L=CE_DDM\"},\"related_searches_info\":AAAAAAA,"
 res = re.findall("DEAL_ID=MLB2513&S=MKT&V=3&T=TSB&L=CE_DDM\"},\"related_searches_info\":(.*?),", str)
@@ -61,16 +62,10 @@ for index,l in enumerate(data):
     print('{0}:{1}'.format(l,index))
 
 
-
-print(type([]) is list)
-def func():
-    print('2222')
-    n = 1
-    while n < 5:
-        yield n
-        n += 1
+#文件路径
+# print(os.path.dirname(os.path.abspath(__file__)))
+# print(os.path.dirname(__file__))
+print(sys.path)
 
 
-func()
-# for i in func():
-#     print(i)
+

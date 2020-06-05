@@ -22,7 +22,10 @@ NEWSPIDER_MODULE = 'local.spiders'
 ROBOTSTXT_OBEY = True
 
 #LOG_LEVEL
-LOG_LEVEL='WARNING'
+#LOG_LEVEL='WARNING'
+
+# Download Images
+IMAGES_STORE='D:\Desktop\ImageSpider'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -67,9 +70,10 @@ LOG_LEVEL='WARNING'
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'local.pipelines.LocalPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   #'local.pipelines.LocalPipeline': 300,
+    'local.pipelines.ImageDownloadPipeline': 300
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
