@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 import copy
-from mercadolivre.items import MercadolivreItem
+from ..items import MercadolivreItem
 import time
 import json
 import re
