@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
 import re
 import datetime
-
+import os
+import sys
 #正则
-str = "DEAL_ID=MLB2513&S=MKT&V=3&T=TSB&L=CE_DDM\"},\"related_searches_info\":AAAAAAA,"
-res = re.findall("DEAL_ID=MLB2513&S=MKT&V=3&T=TSB&L=CE_DDM\"},\"related_searches_info\":(.*?),", str)
-print(res)
+str='www.baidu.com'
+print(re.match('www',str).span())
+print(re.match('com',str))
 
 str = "邮件拉取-适用所有平台\n\n\n![]http://dp.yibai-it.com:33344/server/../Public/Uploads/2020-05-23/5ec8e8c003d10.jpg)"
 site = re.findall("[(](.*?)[)]", str)
@@ -20,6 +21,13 @@ print(re.findall('showStockDate[(](.*?)[)]',str))
 str='https://hq.gucheng.com/SZ000010/'
 print(re.findall('\d{6}',str)[0])
 
+str='国药一致(000028)'
+print(str.split('(')[0])
+print(re.findall('[(](.*?)[)]',str)[0])
+
+str = '1102231990xxxxxxxx'
+res = re.search('(?P<province>\d{3})(?P<city>\d{3})(?P<born_year>\d{4})',str)
+print(res.groupdict())
 
 #range()函数
 for i in range(4):
@@ -61,16 +69,21 @@ for index,l in enumerate(data):
     print('{0}:{1}'.format(l,index))
 
 
+#字典取值赋值
+dict_tmp={'name':'ABCD','age':18}
+print(dict_tmp.get('height','无'))
 
-print(type([]) is list)
-def func():
-    print('2222')
-    n = 1
-    while n < 5:
-        yield n
-        n += 1
+'''
+insert_temp=''
+'''
+insert_sql =""" AAAA """
+
+if '':
+    print('空字符串')
+
+print(insert_sql)
 
 
-func()
-# for i in func():
-#     print(i)
+
+
+

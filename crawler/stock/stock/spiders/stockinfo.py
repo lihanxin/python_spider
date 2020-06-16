@@ -2,49 +2,47 @@
 import scrapy
 import json
 import re
-from stock.items import StockItem
+from ..items import StockItem
 
 
 
 class StockinfoSpider(scrapy.Spider):
     name = 'stockinfo'
-    allowed_domains = ['gucheng.com', '10jqka.com']
+    allowed_domains = ['gucheng.com']
     start_urls = ['https://hq.gucheng.com/gpdmylb.html']
 
     def parse(self, response):
-        stock_list = response.xpath('//*[@id="stock_index_right"]/div[3]/section/a/@href').extract()
-        print(len(stock_list))
-        stocks = []
+        stock_list = response.xpath('//*[@id="stock_index_right"]/div[3]/section/a')
         for stock in stock_list:
-            try:
-                stocks.append(re.findall(r'\d{6}', stock)[0])
-            except:
-                print('--出现异常--{0}'.format(stock))
-                continue
-        stocks = [item.lower() for item in stocks]
-        for stock in stocks:
+            stock_info=stock.xpath('./text()').extract_first()
+            stock_url=stock.xpath('./@href').extract_first()
             yield scrapy.Request(
-                'http://qd.10jqka.com.cn/quote.php?cate=real&type=stock&callback=showStockDate&return=json&code={0}'.format(
-                    stock),
+                stock_url,
                 callback=self.parse_stock_detail,
-                meta={'stock_code': stock},
-                dont_filter=True
+                dont_filter=True,
+                meta={'stock_name':stock_info.split('(')[0],'stock_code':re.findall('[(](.*?)[)]',stock_info)[0]}
             )
 
     def parse_stock_detail(self, response):
-        stock_dict = json.loads(re.findall('showStockDate[(](.*?)[)]', response.text)[0])
-        if type(stock_dict) is not list:
-            stock_code = response.meta['stock_code']
-            item = StockItem()
-            item['stock_name'] = stock_dict['info'][stock_code]['name']
-            item['stock_code'] = stock_code
-            item['stock_today_open'] = stock_dict['data'][stock_code]['7']
-            item['stock_yesterday_closed'] = stock_dict['data'][stock_code]['6']
-            item['stock_trade_num'] = stock_dict['data'][stock_code]['13']
-            item['stock_trade_amount'] = stock_dict['data'][stock_code]['19']
-            item['stock_turnover_rate'] = stock_dict['data'][stock_code]['1968584']
-            item['stock_orpm'] = stock_dict['data'][stock_code]['526792']
-            item['stock_highest'] = stock_dict['data'][stock_code]['8']
-            item['stock_lowest'] = stock_dict['data'][stock_code]['9']
-            item['stock_traded_market_value'] = stock_dict['data'][stock_code]['3475914']
-            yield item
+        item=StockItem()
+        item['stock_name']=response.meta['stock_name']
+        item['stock_code']=response.meta['stock_code']
+        item['stock_today_open']=response.xpath("//dt[text()='今开']/following-sibling::*[1]/text()").extract_first()
+        item['stock_yesterday_closed']=response.xpath("//dt[text()='昨收']/following-sibling::*[1]/text()").extract_first()
+        item['stock_limit_up']=response.xpath("//dt[text()='涨停']/following-sibling::*[1]/text()").extract_first()
+        item['stock_limit_down']=response.xpath("//dt[text()='跌停']/following-sibling::*[1]/text()").extract_first()
+        item['stock_turnover_rate']=response.xpath("//dt[text()='换手率']/following-sibling::*[1]/text()").extract_first()
+        item['stock_amplitude']=response.xpath("//dt[text()='振幅']/following-sibling::*[1]/text()").extract_first()
+        item['stock_trade_volume']=response.xpath("//dt[text()='成交量']/following-sibling::*[1]/text()").extract_first()
+        item['stock_trade_amount']=response.xpath("//dt[text()='成交额']/following-sibling::*[1]/text()").extract_first()
+        item['stock_in_disc']=response.xpath("//dt[text()='内盘']/following-sibling::*[1]/text()").extract_first()
+        item['stock_out_disc']=response.xpath("//dt[text()='外盘']/following-sibling::*[1]/text()").extract_first()
+        item['stock_appoint_than']=response.xpath("//dt[text()='委比']/following-sibling::*[1]/text()").extract_first()
+        item['stock_price_limit']=response.xpath("//dt[text()='涨跌幅']/following-sibling::*[1]/text()").extract_first()
+        item['stock_pe']=response.xpath("//dt[text()='市盈率']/following-sibling::*[1]/text()").extract_first()
+        item['stock_pb']=response.xpath("//dt[text()='市净率']/following-sibling::*[1]/text()").extract_first()
+        item['stock_trade_market_value']=response.xpath("//dt[text()='流通市值']/following-sibling::*[1]/text()").extract_first()
+        item['stock_total_market_value']=response.xpath("//dt[text()='总市值']/following-sibling::*[1]/text()").extract_first()
+        item['stock_highest']=response.xpath("//dt[text()='最高']/following-sibling::*[1]/text()").extract_first()
+        item['stock_lowest']=response.xpath("//dt[text()='最低']/following-sibling::*[1]/text()").extract_first()
+        yield item
