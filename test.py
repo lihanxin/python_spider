@@ -8,6 +8,7 @@ import random
 str='www.baidu.com'
 print(re.match('www',str).span())
 print(re.match('com',str))
+print('正则')
 
 str = "邮件拉取-适用所有平台\n\n\n![]http://dp.yibai-it.com:33344/server/../Public/Uploads/2020-05-23/5ec8e8c003d10.jpg)"
 site = re.findall("[(](.*?)[)]", str)
