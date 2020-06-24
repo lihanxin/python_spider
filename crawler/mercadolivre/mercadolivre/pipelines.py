@@ -20,11 +20,9 @@ class MercadolivrePipeline(object):
 
     # #处理提取的数据
     def process_item(self, item, spider):
-        print("执行数据提取")
         self.collections.insert(item)
         return item
     #
     # #爬虫关闭时执行,只执行一次
     def close_spider(self, spider):
         print("关闭爬虫")
-        pass

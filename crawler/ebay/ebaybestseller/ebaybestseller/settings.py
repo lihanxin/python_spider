@@ -21,6 +21,9 @@ NEWSPIDER_MODULE = 'ebaybestseller.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
+#LOG LEVEL
+LOG_LEVEL='WARNING'
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from ebaybestseller.items import EbaybestsellerItem
+from ..items import EbaybestsellerItem
 import copy
 
 
